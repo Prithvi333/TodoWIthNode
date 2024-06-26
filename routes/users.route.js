@@ -7,6 +7,7 @@ const BlackListModel = require("../models/blacklist.model");
 const validateToken = require("../middleware/tokenVerifier");
 const generateToken = require("../utility/refreshToken");
 const userField = require("../middleware/userFieldChecker");
+const userEmailPasswordDecoder = require("../utility/decoder");
 userRoute.post("/register", userField, (req, res) => {
   const { userName, userEmail, userPassword } = req.body;
   try {
@@ -26,7 +27,10 @@ userRoute.post("/register", userField, (req, res) => {
 });
 
 userRoute.post("/login", async (req, res) => {
-  const { userEmail, userPassword } = req.body;
+  const decoded = userEmailPasswordDecoder(
+    req.headers.authorization.split(" ")[1]
+  );
+  const [userEmail, userPassword] = decoded.split(":");
 
   const user = await UserModel.findOne({ userEmail: userEmail });
   if (user) {
@@ -40,7 +44,12 @@ userRoute.post("/login", async (req, res) => {
           const refToken = jwt.sign({ userId: _id, userName }, "refresh", {
             expiresIn: "1h",
           });
-          res.setHeader("token", token);
+
+          res.setHeader("Access-Control-Expose-Headers", [
+            "Authorization",
+            "refToken",
+          ]);
+          res.setHeader("Authorization", `Bearer ${token}`);
           res.setHeader("refToken", refToken);
           res.status(200).json({ msg: "Login successful" });
         } else if (err) res.status(200).json({ msg: "Incorrect password" });

@@ -4,8 +4,11 @@ const userField = (req, res, next) => {
 
   const typeCheck =
     typeof userName === "string" &&
+    userName !== "" &&
     typeof userEmail === "string" &&
-    typeof userPassword === "string";
+    userName !== "" &&
+    typeof userPassword === "string" &&
+    userName !== "";
 
   if (!typeCheck) res.status(200).json({ msg: process.env.userFieldError });
   else next();

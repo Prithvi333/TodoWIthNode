@@ -1,5 +1,5 @@
 const { TodoModel } = require("../models/todos.model");
-const statusHandler = async (req, res, stats, client) => {
+const statusHandler = async (req, res, stats) => {
   const { taskId } = req.params;
   const uId = req.body.userId;
 
@@ -11,11 +11,11 @@ const statusHandler = async (req, res, stats, client) => {
         ? { isComplete: !task.isComplete }
         : { isFavorite: !task.isFavorite };
       await TodoModel.findByIdAndUpdate({ _id: taskId }, modifyData);
-      await client.set("todos", "");
       res.status(200).json({
         msg: `Todo ${
           stats ? "complete" : "favorite"
         } status changed successfully`,
+        taskId: taskId,
       });
     } else {
       res.status(200).json({ msg: "Permission denied" });

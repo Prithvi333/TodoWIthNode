@@ -57,6 +57,10 @@ const loginUser = (userCred, navigate) => (dispatch) => {
           payload: res.headers.get("Authorization").split(" ")[1],
         });
         localStorage.setItem("auth", true);
+        localStorage.setItem(
+          "token",
+          res.headers.get("Authorization").split(" ")[1]
+        );
         navigate("/todo");
       }
     })
@@ -74,6 +78,7 @@ const logout = (token) => (dispatch) => {
     })
     .then(() => {
       localStorage.setItem("auth", false);
+      localStorage.setItem("token", "");
       dispatch({ type: LOGOUT });
     });
 };

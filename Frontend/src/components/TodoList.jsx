@@ -43,8 +43,8 @@ export default function TodoList() {
   return (
     <>
       <div className="w-4/5">
-        <div className=" bg-slate-100 p-8   ">
-          <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-lg">
+        <div className=" bg-slate-100 p-8">
+          <div className="flex flex-col md:flex-row justify-between items-center bg-white p-4 rounded-lg shadow-lg">
             <select
               onChange={fieldChanger}
               name="sortVal"

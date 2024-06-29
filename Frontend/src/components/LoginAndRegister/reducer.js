@@ -10,8 +10,12 @@ import {
 const user = {
   isError: false,
   isLoading: false,
-  isAuth: false,
-  token: "",
+  isAuth:
+    localStorage.getItem("auth") !== null &&
+    localStorage.getItem("auth") == "true"
+      ? true
+      : false,
+  token: localStorage.getItem("token"),
   errorToogle: false,
 };
 export const registerReducer = (state = user, action) => {
@@ -60,6 +64,7 @@ export const registerReducer = (state = user, action) => {
     case LOGOUT: {
       return {
         ...user,
+        isAuth: false,
       };
     }
     default: {

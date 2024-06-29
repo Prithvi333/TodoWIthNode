@@ -64,7 +64,7 @@ The frontend of the application is built with React, leveraging components to in
 
 ## Contributors
 
-- Your Name
+- Prithvi Chauhan
 
 ## License
 

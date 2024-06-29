@@ -58,7 +58,9 @@ export const registerReducer = (state = user, action) => {
     }
 
     case LOGOUT: {
-      return user;
+      return {
+        ...user,
+      };
     }
     default: {
       return state;

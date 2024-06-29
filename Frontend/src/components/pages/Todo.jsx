@@ -17,11 +17,13 @@ export default function Todo() {
   useEffect(() => {
     dispatch(loadTodos(token));
   }, []);
-  console.log(loading);
+
   return (
-    <div className="flex justify-evenly">
-      <AddTask />
-      {loading ? <Loader /> : <TodoList />}
+    <div className=" ">
+      <div className="flex justify-evenly   ">
+        <AddTask />
+        {loading ? <Loader /> : <TodoList />}
+      </div>
     </div>
   );
 }

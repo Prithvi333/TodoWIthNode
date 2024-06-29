@@ -56,7 +56,7 @@ const loginUser = (userCred, navigate) => (dispatch) => {
           type: LOGINSUCCESS,
           payload: res.headers.get("Authorization").split(" ")[1],
         });
-        localStorage.setItem("email", userEmail);
+        localStorage.setItem("auth", true);
         navigate("/todo");
       }
     })
@@ -73,6 +73,7 @@ const logout = (token) => (dispatch) => {
       },
     })
     .then(() => {
+      localStorage.setItem("auth", false);
       dispatch({ type: LOGOUT });
     });
 };

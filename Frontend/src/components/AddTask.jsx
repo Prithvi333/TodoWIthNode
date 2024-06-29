@@ -35,7 +35,7 @@ export default function AddTask() {
 
   return (
     <div className="flex  bg-gradient-to-br from-blue-50 to-slate-100 w-1/3">
-      <form className="p-8 bg-white shadow-xl rounded-lg w-full max-w-md">
+      <form className="p-8 bg-white shadow-xl rounded-lg w-full max-w-md ">
         <h2 className="text-3xl font-extrabold mb-8 text-center text-blue-600">
           Add Task
         </h2>

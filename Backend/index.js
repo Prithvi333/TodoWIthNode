@@ -11,6 +11,9 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 userRoute.use(bodyParser.json());
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "My application is up and running..." });
+});
 app.use("/user", userRoute);
 app.use("/task", taskRoute);
 app.listen(process.env.port, async () => {

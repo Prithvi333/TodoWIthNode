@@ -2,21 +2,24 @@ import React, { useEffect } from "react";
 import AddTask from "../AddTask";
 import TodoList from "../TodoList";
 import Loader from "../Loader";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { loadTodos } from "../todos/actions";
 
 export default function Todo() {
   const { token } = useSelector((store) => store.registerReducer);
 
-  const loading = useSelector((store) => store.todoReducer.isLoading);
+  const loading = useSelector(
+    (store) => store.todoReducer.isLoading,
+    shallowEqual
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadTodos(token));
   }, []);
-
+  console.log(loading);
   return (
-    <div className="flex justify-between min-h-screen">
+    <div className="flex justify-evenly">
       <AddTask />
       {loading ? <Loader /> : <TodoList />}
     </div>

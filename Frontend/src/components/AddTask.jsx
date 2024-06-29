@@ -29,15 +29,18 @@ export default function AddTask() {
 
   const handleDataSubmit = (e) => {
     e.preventDefault();
+
     dispatch(createTodo(token, task));
   };
 
   return (
-    <div className=" flex w-1/6 bg-slate-50">
-      <form className="p-8 rounded-lg   w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Add Task</h2>
+    <div className="flex  bg-gradient-to-br from-blue-50 to-slate-100 w-1/3">
+      <form className="p-8 bg-white shadow-xl rounded-lg w-full max-w-md">
+        <h2 className="text-3xl font-extrabold mb-8 text-center text-blue-600">
+          Add Task
+        </h2>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <label
             htmlFor="taskTitle"
             className="block text-gray-700 font-medium mb-2"
@@ -49,14 +52,15 @@ export default function AddTask() {
             type="text"
             id="taskTitle"
             name="taskTitle"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter task title"
             onChange={handleTaskData}
             value={task.taskTitle}
+            maxLength={50}
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <label
             htmlFor="taskDesc"
             className="block text-gray-700 font-medium mb-2"
@@ -68,15 +72,14 @@ export default function AddTask() {
             style={{ height: "171px" }}
             id="taskDesc"
             name="taskDesc"
-            className="  resize-none w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none  focus:ring-2 focus:ring-blue-500"
+            className="resize-none w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter task description"
             onChange={handleTaskData}
             value={task.taskDesc}
-            checked={task.isFavorite}
           ></textarea>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <label
             htmlFor="taskDeadline"
             className="block text-gray-700 font-medium mb-2"
@@ -88,14 +91,14 @@ export default function AddTask() {
             type="date"
             id="taskDeadline"
             name="taskDeadline"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={handleTaskData}
             value={task.taskDeadline}
             min={today}
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <div className="flex items-center">
             <input
               type="checkbox"
@@ -105,13 +108,16 @@ export default function AddTask() {
               onChange={handleTaskData}
               value={task.isFavorite}
             />
-            <label htmlFor="isFavorite" className="ml-2 text-gray-700">
+            <label
+              htmlFor="isFavorite"
+              className="ml-2 text-gray-700 font-medium"
+            >
               Favorite
             </label>
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <label
             htmlFor="taskPriority"
             className="block text-gray-700 font-medium mb-2"
@@ -121,7 +127,7 @@ export default function AddTask() {
           <select
             id="taskPriority"
             name="taskPriority"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={handleTaskData}
             value={task.taskPriority}
           >
@@ -137,7 +143,7 @@ export default function AddTask() {
         <button
           type="submit"
           onClick={handleDataSubmit}
-          className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
         >
           Submit
         </button>

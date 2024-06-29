@@ -41,9 +41,9 @@ export default function TodoCard({ todoItem }) {
 
   return (
     <div
-      className={`${getPriorityClasses(
+      className={`bg-white p-6 rounded-xl shadow-lg mb-6 flex flex-col border border-gray-200 relative ${getPriorityClasses(
         taskPriority
-      )} p-6 rounded-xl shadow-lg mb-6 flex flex-col border border-gray-200 relative`}
+      )}`}
     >
       {isFavorite && (
         <div className="absolute top-0 left-0 mt-2 ml-2">

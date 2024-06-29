@@ -5,6 +5,7 @@ import {
   REGISTRATIONSUCCESS,
   LOGINSUCCESS,
   LOGOUT,
+  ERRORTOOGLE,
 } from "./actionType";
 
 const absolutePath = "http://localhost:8080/user";
@@ -16,13 +17,14 @@ const headerFormer = () => ({
   },
 });
 
-const registerUser = (cred, navigate) => (dispatch) => {
+const registerUser = (cred) => (dispatch) => {
   dispatch({ type: LOADING });
 
   return axios
     .post(`${absolutePath}/register`, cred, headerFormer())
     .then((res) => {
       if (res.status === 200) {
+        dispatch({ type: ERRORTOOGLE });
         dispatch({ type: ERROR });
       }
       dispatch({
@@ -32,7 +34,6 @@ const registerUser = (cred, navigate) => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: ERROR });
-      navigate("/");
     });
 };
 
@@ -48,6 +49,7 @@ const loginUser = (userCred, navigate) => (dispatch) => {
   })
     .then((res) => {
       if (res.status === 400 || res.status === 404) {
+        dispatch({ type: ERRORTOOGLE });
         dispatch({ type: ERROR });
       } else {
         dispatch({

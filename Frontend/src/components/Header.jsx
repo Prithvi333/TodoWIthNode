@@ -1,15 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import ErrorMessage from "./ErrorMessage";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "./LoginAndRegister/actions";
+import ErrorMessage from "./Error Message";
 export default function Header() {
-  const { isAuth, token, isError } = useSelector(
+  const { isAuth, token, errorToogle } = useSelector(
     (store) => store.registerReducer
   );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const logoutUser = () => {
     dispatch(logout(token)).then(() => {
@@ -19,12 +20,6 @@ export default function Header() {
 
   return (
     <header className="text-gray-600 body-font bg-indigo-300 sticky top-0 z-10  ">
-      {isError && (
-        <ErrorMessage
-          message={"Please enter valid credentials"}
-          duration={1000}
-        />
-      )}
       <div className="  flex flex-wrap p-5 flex-col md:flex-row items-center ">
         <Link
           to={"/"}
@@ -58,10 +53,20 @@ export default function Header() {
             Fourth Link
           </a> */}
         </nav>
-        {isAuth && (
+        <div>
+          {
+            <ErrorMessage
+              message={errorToogle && "Please provide valid data"}
+            />
+          }
+        </div>
+
+        {isAuth && location.pathname === "/todo" && (
           <button
             onClick={logoutUser}
-            className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+            className={
+              "inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 z-10 "
+            }
           >
             Logout
             <svg

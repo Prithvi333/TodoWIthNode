@@ -1,19 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ErrorMessage from "../ErrorMessage";
 export default function HeroSection() {
   const navigate = useNavigate();
-  const error = useSelector((store) => store.registerReducer.isError);
-
+  const { isAuth } = useSelector((store) => store.registerReducer);
   return (
     <div>
-      {error && (
-        <ErrorMessage
-          message={"Please enter valid credentials"}
-          duration={2000}
-        />
-      )}
       <section className="text-gray-600 body-font">
         <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
           <img
@@ -36,7 +28,7 @@ export default function HeroSection() {
             <div className="flex justify-center">
               <button
                 onClick={() => {
-                  navigate("/signin");
+                  isAuth ? navigate("/todo") : navigate("/signin");
                 }}
                 className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
               >

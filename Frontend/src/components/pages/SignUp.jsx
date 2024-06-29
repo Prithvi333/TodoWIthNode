@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../LoginAndRegister/actions";
-import { useNavigate } from "react-router-dom";
 import SuccessMessage from "../SuccessMessage";
 const defaultUserData = { userName: "", userEmail: "", userPassword: "" };
 export default function SignUp() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [registerationFlag, setRegistrationFlag] = useState(false);
   const [userData, setUserData] = useState(defaultUserData);
 
@@ -16,7 +14,7 @@ export default function SignUp() {
 
   const registerUserHandler = (e) => {
     e.preventDefault();
-    dispatch(registerUser(userData, navigate))
+    dispatch(registerUser(userData))
       .then(() => {
         setRegistrationFlag(true);
       })

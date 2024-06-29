@@ -5,11 +5,18 @@ import {
   ADDTASK,
   DELETETASK,
   COMPLETETASK,
+  SEARCHTODOFETCH,
 } from "./actionType";
+import { searchTodoFetch } from "./actions";
 
-const todoData = { userId: "", todos: [], isLoading: false, isError: false };
+const todoData = {
+  userId: "",
+  todos: [],
+  isLoading: false,
+  isError: false,
+  searchedTodos: [],
+};
 const deleteOrComplete = (state, payload, type) => {
-  console.log(payload);
   if (type === "complete") {
     return {
       ...state,
@@ -17,7 +24,6 @@ const deleteOrComplete = (state, payload, type) => {
       todos: state.todos.map((element) => {
         if (element._id === payload) {
           element.isComplete = !element.isComplete;
-          console.log(element);
         }
         return element;
       }),
@@ -64,13 +70,18 @@ export const todoReducer = (state = todoData, action) => {
         todos: [...state.todos, payload],
       };
     }
+    case SEARCHTODOFETCH: {
+      return {
+        ...state,
+        searchedTodos: payload,
+      };
+    }
     case DELETETASK: {
       return deleteOrComplete(state, payload, "delete");
     }
     case COMPLETETASK: {
       return deleteOrComplete(state, payload, "complete");
     }
-
     default: {
       return state;
     }

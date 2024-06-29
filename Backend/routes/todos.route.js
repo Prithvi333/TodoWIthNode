@@ -28,9 +28,8 @@ taskRoute.post("/create", todoField, async (req, res) => {
   req.body.taskTime = time;
   try {
     const newTask = new TodoModel(req.body);
-    await newTask.save();
-
-    res.status(201).json({ todo: req.body });
+    const todoData = await newTask.save();
+    res.status(201).json({ todo: todoData });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -38,6 +37,24 @@ taskRoute.post("/create", todoField, async (req, res) => {
 taskRoute.get("/todos", async (req, res) => {
   try {
     const todoList = await TodoModel.find({ userId: req.body.userId });
+
+    if (todoList.length == 0)
+      res.status(200).json({ msg: "Todo list is empty" });
+    else {
+      res.status(200).json({ Todos: todoList });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+taskRoute.get("/titletodos", async (req, res) => {
+  const { taskTitle } = req.query;
+  try {
+    const todoList = await TodoModel.find({
+      userId: req.body.userId,
+      taskTitle,
+    });
 
     if (todoList.length == 0)
       res.status(200).json({ msg: "Todo list is empty" });

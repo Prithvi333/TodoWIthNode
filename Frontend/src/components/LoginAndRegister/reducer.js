@@ -4,6 +4,7 @@ import {
   ERROR,
   LOGINSUCCESS,
   LOGOUT,
+  ERRORTOOGLE,
 } from "./actionType";
 
 const user = {
@@ -11,6 +12,7 @@ const user = {
   isLoading: false,
   isAuth: false,
   token: "",
+  errorToogle: false,
 };
 export const registerReducer = (state = user, action) => {
   const { type, payload } = action;
@@ -45,6 +47,13 @@ export const registerReducer = (state = user, action) => {
         isLoading: false,
         isError: true,
         isAuth: false,
+      };
+    }
+
+    case ERRORTOOGLE: {
+      return {
+        ...state,
+        errorToogle: !state.errorToogle,
       };
     }
 

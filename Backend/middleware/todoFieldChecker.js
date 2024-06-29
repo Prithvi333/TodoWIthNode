@@ -4,11 +4,17 @@ const todoField = (req, res, next) => {
 
   const typeCheck =
     typeof taskTitle === "string" &&
+    taskTitle !== "" &&
     typeof taskDesc === "string" &&
-    typeof day === "string" &&
+    taskDesc !== "" &&
     typeof taskDeadline === "string" &&
+    taskDeadline !== "" &&
     typeof taskPriority === "string";
+  taskPriority !== "";
+
   if (!typeCheck) res.status(200).json({ msg: process.env.todoFieldError });
-  next();
+  else {
+    next();
+  }
 };
 module.exports = todoField;
